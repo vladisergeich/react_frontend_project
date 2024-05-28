@@ -27,12 +27,21 @@
   "scripts": {
     "start": "nodemon ./server.js",
     "build": "react-scripts build",
+<<<<<<< Updated upstream
     "frontend:start": "react-scripts start"
+=======
+    "migrate": "node backend/migrate.js",
+    "frontend:start": "react-scripts start",
+    "cypress:open": "cypress open",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+>>>>>>> Stashed changes
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:storybook/recommended"
     ]
   },
   "browserslist": {
@@ -48,6 +57,21 @@
     ]
   },
   "devDependencies": {
-    "react-scripts": "^5.0.1"
+    "@chromatic-com/storybook": "^1.3.3",
+    "@storybook/addon-essentials": "^8.0.8",
+    "@storybook/addon-interactions": "^8.0.8",
+    "@storybook/addon-links": "^8.0.8",
+    "@storybook/addon-onboarding": "^8.0.8",
+    "@storybook/blocks": "^8.0.8",
+    "@storybook/preset-create-react-app": "^8.0.8",
+    "@storybook/react": "^8.0.8",
+    "@storybook/react-webpack5": "^8.0.8",
+    "@storybook/test": "^8.0.8",
+    "cypress": "^13.7.3",
+    "eslint-plugin-storybook": "^0.8.0",
+    "prop-types": "^15.8.1",
+    "react-scripts": "^5.0.1",
+    "storybook": "^8.0.8",
+    "webpack": "^5.91.0"
   }
 }

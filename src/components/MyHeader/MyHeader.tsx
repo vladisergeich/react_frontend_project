@@ -51,6 +51,7 @@ export default function MyHeader() {
             {isLogin && user && <Flex gap={'middle'} align={'center'}>
                 <span style={{color: 'white'}}>{JSON.parse(user).email}</span>
                 <Button
+                    data-role="logout"
                     onClick={logoutHandler}
                     size={'small'}
                     type={'primary'}
