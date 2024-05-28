@@ -10,6 +10,9 @@ import RegistrationPage from "./pages/RegistrationPage";
 import LoginPage from "./pages/LoginPage";
 import {AuthProvider, useAuthContext} from "./context/authContext";
 import PollutionPage from "./pages/PollutionPage";
+import CityPage from "./pages/CityPage";
+import { Provider } from 'react-redux'
+import {store} from "./store";
 
 const PrivateRoute = ({children}: {children: React.ReactElement}) => {
     const { isLogin } = useAuthContext()
@@ -35,6 +38,10 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><PollutionPage /></PrivateRoute>,
             },
             {
+                path: "/city",
+                element: <PrivateRoute><CityPage /></PrivateRoute>,
+            },
+            {
                 path: "/registration",
                 element: <RegistrationPage />,
             },
@@ -52,8 +59,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     // <React.StrictMode>
+    <Provider store={store}>
         <AuthProvider>
             <RouterProvider router={router}/>
         </AuthProvider>
+    </Provider>
     // </React.StrictMode>
 );

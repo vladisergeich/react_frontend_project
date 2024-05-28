@@ -1,7 +1,8 @@
+require('dotenv/config')
 const express = require('express');
 const path = require('node:path');
-const {authRouter} = require('./backend/routes/authRouter')
-require('dotenv/config')
+const {authRouter} = require('./routes/authRouter')
+const {pollutionRouter} = require("./routes/pollutionsRouter");
 const server = express();
 const cors = require('cors')
 const bodyParser = require('body-parser')
@@ -9,13 +10,14 @@ const bodyParser = require('body-parser')
 server.use(bodyParser.json());
 server.use(cors());
 server.use('/auth', authRouter);
+server.use('/pollutions', pollutionRouter);
 
 // статика frontend React
-server.use(express.static(path.join(__dirname, '/build')));
+server.use(express.static(path.join(__dirname, '../build')));
 
 // всё остальное на index.html
 server.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/build', 'index.html'));
+    res.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
 
 const SERVER_PORT = process.env.SERVER_PORT || 3001;

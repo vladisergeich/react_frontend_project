@@ -4,8 +4,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Пошаговая инструкция
 ### 1. Настроить конфигурационный файл .env
-### 2. Запустить сборку фронта командой `npm run build`
-### 3. Стартовать приложение командой `npm run start`
+### 2. Запустить миграцию БД командой `npm run migrate`
+### 3. Запустить сборку фронта командой `npm run build`
+### 4. Стартовать приложение командой `npm run start`
 
 ## Available Scripts
 
