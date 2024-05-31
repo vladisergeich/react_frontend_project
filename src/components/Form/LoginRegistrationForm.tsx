@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Button, Form, Input, FormProps} from "antd";
+import {Button, Form, Input, FormProps, FormRule} from "antd";
 
 interface LoginFormProps {
     mode: 'login' | 'register',
@@ -30,6 +30,21 @@ export default function LoginRegistrationForm (props: LoginFormProps) {
         props.submitHandler(formData)
     };
 
+    const passwordRules: FormRule[] = [
+        { required: true, message: 'Нужно ввести пароль' },
+        {
+            min: 6,
+            message: 'Минимум 6 символов'
+        },
+    ];
+
+    if (mode === 'register') {
+        passwordRules.push({
+            pattern: /[a-z]/,
+            message: 'Только английские символы в нижнем регистре'
+        })
+    }
+
     return (
         <Form
             form={form}
@@ -53,17 +68,7 @@ export default function LoginRegistrationForm (props: LoginFormProps) {
             <Form.Item
                 label="Пароль"
                 name="password"
-                rules={[
-                    { required: true, message: 'Нужно ввести пароль' },
-                    {
-                        min: 6,
-                        message: 'Минимум 6 символов'
-                    },
-                    mode === 'register' ? {
-                        pattern: /[a-z]/,
-                        message: 'Только английские символы в нижнем регистре'
-                    } : null!,
-                ]}
+                rules={passwordRules}
                 hasFeedback={mode === 'register'}
             >
                 <Input.Password />

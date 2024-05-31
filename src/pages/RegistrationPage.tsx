@@ -2,7 +2,7 @@ import {NavLink, useNavigate} from "react-router-dom";
 import LoginRegistrationForm from "../components/Form/LoginRegistrationForm";
 
 const serverPort = process.env.REACT_APP_SERVER_PORT
-const serverAddress = `//localhost:${serverPort}`
+const serverBaseUrl = `//localhost:${serverPort}/api`
 
 interface RegistrationObjectInterface {
     email: string,
@@ -17,7 +17,7 @@ export default function RegistrationPage () {
         const payload = {email, password, confirm};
 
         try {
-            await fetch(`${serverAddress}/auth/register`, {
+            await fetch(`${serverBaseUrl}/auth/register`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(payload),

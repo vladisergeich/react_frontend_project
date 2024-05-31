@@ -10,11 +10,26 @@ import RegistrationPage from "./pages/RegistrationPage";
 import LoginPage from "./pages/LoginPage";
 import {AuthProvider, useAuthContext} from "./context/authContext";
 import PollutionPage from "./pages/PollutionPage";
+import CityPage from "./pages/CityPage";
+import ArticlesListPage from "./pages/articles/ArticlesListPage";
+import ArticlePage from "./pages/articles/ArticlePage";
+import { Provider } from 'react-redux'
+import {store} from "./store";
+import ArticleCreatePage from "./pages/articles/ArticleCreatePage";
 
 const PrivateRoute = ({children}: {children: React.ReactElement}) => {
     const { isLogin } = useAuthContext()
     if (!isLogin) {
         return <Navigate to="/login"/>
+    }
+
+    return children
+}
+
+const GuestOnlyRoute = ({children}: {children: React.ReactElement}) => {
+    const { isLogin } = useAuthContext()
+    if (isLogin) {
+        return <Navigate to="/"/>
     }
 
     return children
@@ -35,12 +50,33 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><PollutionPage /></PrivateRoute>,
             },
             {
+                path: "/city",
+                element: <PrivateRoute><CityPage /></PrivateRoute>,
+            },
+            {
+                path: "/articles",
+                children: [
+                    {
+                        index: true,
+                        element: <ArticlesListPage />,
+                    },
+                    {
+                        path: "create",
+                        element: <PrivateRoute><ArticleCreatePage /></PrivateRoute>,
+                    },
+                    {
+                        path: ":id",
+                        element: <ArticlePage />,
+                    },
+                ],
+            },
+            {
                 path: "/registration",
-                element: <RegistrationPage />,
+                element: <GuestOnlyRoute><RegistrationPage /></GuestOnlyRoute>,
             },
             {
                 path: "/login",
-                element: <LoginPage />,
+                element: <GuestOnlyRoute><LoginPage /></GuestOnlyRoute>,
             },
             {
                 path: "*",
@@ -52,8 +88,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     // <React.StrictMode>
+    <Provider store={store}>
         <AuthProvider>
             <RouterProvider router={router}/>
         </AuthProvider>
+    </Provider>
     // </React.StrictMode>
 );
